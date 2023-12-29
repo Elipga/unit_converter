@@ -36,11 +36,11 @@ public class ConverterController {
         return ResponseEntity.ok(conversions);
     }
 
-    @Operation(summary = "Find conversion by unit input, unit output and input value")
+    @Operation(summary = "Get conversion by unit input, unit output and input value")
     @GetMapping("/conversions/{inputUnit}/{outputUnit}/{inputValue}")
-    public ResponseEntity<ConversionOutputWithoutId> findConversionByUnitAndValue(@PathVariable String inputUnit,  @PathVariable String
+    public ResponseEntity<ConversionOutputWithoutId> getConversionByUnitAndValue(@PathVariable String inputUnit,  @PathVariable String
             outputUnit, @PathVariable float inputValue) throws NotValidException, AlreadyExistConversion {
-        ConversionOutputWithoutId conversionOutput = converterService.findConversionByUnitAndValue(inputUnit, outputUnit, inputValue);
+        ConversionOutputWithoutId conversionOutput = converterService.getConversionByUnitAndValue(inputUnit, outputUnit, inputValue);
         return ResponseEntity.ok(conversionOutput);
     }
 

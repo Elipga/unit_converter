@@ -71,7 +71,7 @@ public class ConverterService {
         return conversionsOutput;
     }
 
-    public ConversionOutputWithoutId findConversionByUnitAndValue(String inputUnit, String outputUnit, float inputValue) throws NotValidException, AlreadyExistConversion {
+    public ConversionOutputWithoutId getConversionByUnitAndValue(String inputUnit, String outputUnit, float inputValue) throws NotValidException, AlreadyExistConversion {
         if(!conversionRepository.existsByInputUnitAndOutputUnitAndInputValue(inputUnit,
                 outputUnit, inputValue)) throw new AlreadyExistConversion("Conversion doesn´t exist");
         Conversion conversion = conversionRepository.findByInputUnitAndOutputUnitAndInputValue(inputUnit,
