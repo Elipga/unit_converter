@@ -6,4 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ConversionRepository extends JpaRepository <Conversion,String> {
     Boolean existsByInputUnitAndOutputUnitAndInputValue (String inputUnit, String outputUnit,
                                                                        float inputValue);
+
+    Conversion findByInputUnitAndOutputUnitAndInputValue (String inputUnit, String outputUnit,
+                                                         float inputValue);
 }

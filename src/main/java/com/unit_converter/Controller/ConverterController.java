@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.annotation.Repeatable;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class ConverterController {
     ConverterService converterService;
 
     @Operation(summary = "To do a conversion and save it")
-    @PostMapping("/conversion")
+    @PostMapping("/conversions")
     public ResponseEntity<ConversionOutputWithoutId> addConversion(@RequestBody ConversionInput conversionInput) throws NotValidException, AlreadyExistConversion {
         ConversionOutputWithoutId conversionOutputWithoutId = converterService.addConversion(conversionInput);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -35,9 +36,16 @@ public class ConverterController {
         return ResponseEntity.ok(conversions);
     }
 
+    @Operation(summary = "Find conversion by unit input, unit output and input value")
+    @GetMapping("/conversions/{inputUnit}/{outputUnit}/{inputValue}")
+    public ResponseEntity<ConversionOutputWithoutId> findConversionByUnitAndValue(@PathVariable String inputUnit,  @PathVariable String
+            outputUnit, @PathVariable float inputValue) throws NotValidException, AlreadyExistConversion {
+        ConversionOutputWithoutId conversionOutput = converterService.findConversionByUnitAndValue(inputUnit, outputUnit, inputValue);
+        return ResponseEntity.ok(conversionOutput);
+    }
 
     @Operation(summary = "Delete conversion by id")
-    @DeleteMapping("/conversion/{conversionId}")
+    @DeleteMapping("/conversions/{conversionId}")
     public ResponseEntity<String> deleteConversion(@PathVariable String conversionId) throws NotExistsConversionException {
         converterService.deleteConversion(conversionId);
         return ResponseEntity.ok().build();
